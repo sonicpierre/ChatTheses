@@ -1,0 +1,10 @@
+numpy
+python-dotenv
+PyPDF2
+streamlit
+requests
+pandas
+beautifulsoup4
+langchain
+openai
+tiktoken
