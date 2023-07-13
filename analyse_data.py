@@ -1,15 +1,21 @@
 import os
 import numpy as np
+import glob
 
 EMBBEDDED_MODEL_OUTPUT = 1536
-FOLDER = "data/embedding_summary"
+MAIN_FOLDER = "data/embedding_summary"
 
 if __name__ == '__main__':
 
-    li_tables = os.listdir(FOLDER)
-    arr_embedded = np.zeros((len(li_tables), EMBBEDDED_MODEL_OUTPUT))
+    li_domains = os.listdir(MAIN_FOLDER)
+    dict_embedding = {}
 
-    for t in range(len(li_tables)):
-        arr_embedded[t] = np.load(os.path.join(FOLDER, li_tables[t]))
+    for t in range(len(li_domains)):
+        arrays = glob.glob(os.path.join(MAIN_FOLDER, li_domains[t], "*.npy"))
+        for arr in arrays:
+            if li_domains[t] not in dict_embedding:
+                dict_embedding[li_domains[t]] = []
+                
+            dict_embedding[li_domains[t]].append(np.load(arr))
 
-    print(arr_embedded.shape)
+    print(dict_embedding)

@@ -14,17 +14,17 @@ def num_tokens_from_string(string: str, encoding_name: str) -> int:
 
     return num_tokens
 
-def classic_embedding(txt:str, prod = False):
-    
+def classic_embedding(txt:str, prod = False)->np.array:
+    """
+    Embedding of the documents
+    """
+
     if prod:
         embeddings = OpenAIEmbeddings(model=FIRST_MODEL, tiktoken_model_name=SECOND_MODEL)
     else:
         embeddings = FakeEmbeddings(size=1000)
 
     nb_token = num_tokens_from_string(txt, SECOND_MODEL)
-    print("Number of input tokens", nb_token)
-
     query_result = embeddings.embed_query(txt)
     
     return np.array(query_result, dtype=np.float32)
-
