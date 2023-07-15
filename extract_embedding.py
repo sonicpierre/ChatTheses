@@ -15,8 +15,8 @@ if __name__ == '__main__':
 
     #Allow storing summary in pinecone
     pinecone.init(api_key=os.getenv("PINECONE_API_KEY"), environment="asia-southeast1-gcp-free")
-    index = pinecone.Index("theses")
-    
+    index = pinecone.Index("thesesv2")
+
     print("Start extraction of summaries !!")
 
     for f in urls:
@@ -34,11 +34,7 @@ if __name__ == '__main__':
                 os.makedirs(path)
             
             np.save(os.path.join(path, f + ".npy"), embedding)
+
             index.upsert([
                 (f, list(embedding.astype(np.float64)), {"domain": domain})
             ])
-
-
-
-    #get_images("/home/virgaux/Travail/langchain/data/theses/edutice-00000207v1.pdf")
-    #print(get_text("/home/virgaux/Travail/langchain/data/theses/edutice-00000207v1.pdf", 40))

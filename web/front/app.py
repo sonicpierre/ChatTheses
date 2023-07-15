@@ -1,5 +1,6 @@
 import streamlit as st
 from htmlTemplate import css, user_template, bot_template
+from dotenv import load_dotenv
 
 def handle_userinput(user_question):
     response = st.session_state.conversation({'question': user_question})
@@ -31,3 +32,6 @@ if user_question:
 
 st.write(user_template.replace("{{MSG}}", "Hello I'm the user"), unsafe_allow_html=True)
 st.write(bot_template.replace("{{MSG}}", "Hello I'm the bot"), unsafe_allow_html=True)
+
+st.session_state.conversation = get_conversation_chain(
+                    vectorstore)
